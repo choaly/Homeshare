@@ -16,10 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
         TextView loginButton = (TextView) findViewById(R.id.login);
         loginButton.setOnClickListener(this::onClickLogin);
+        TextView signUpButton = (TextView) findViewById(R.id.signup);
+        signUpButton.setOnClickListener(this::onClickSignup);
     }
 
     public void onClickLogin(View view) {
         Intent intent = new Intent(this, login.class);
+        startActivity(intent);
+        return;
+    }
+
+    public void onClickSignup(View view) {
+        Intent intent = new Intent(this, Signup.class);
         startActivity(intent);
         return;
     }
