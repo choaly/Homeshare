@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="284dp"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:hint="tommytrojan@usc.edu"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="364dp"
+        android:inputType="textPassword"
         android:ems="10"
         android:hint="*****"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="444dp"
+        android:inputType="textPassword"
         android:ems="10"
         android:hint="*****"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,4 +139,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/signUpErrMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="560dp"
+        android:text=""
+        android:textColor="#FF0000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
