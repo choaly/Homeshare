@@ -23,8 +23,18 @@ public class login extends AppCompatActivity {
     }
 
     public void onClickLogin(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        return;
+        String email = ((EditText) findViewById(R.id.email)).getText().toString();
+        String pass = ((EditText) findViewById(R.id.password)).getText().toString();
+        TextView err = (TextView) findViewById(R.id.loginErrMsg);
+        if (email.equals("") || pass.equals("")) {
+            err.setText("Error: Please fill out all fields!");
+        } else {
+            err.setText("");
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+            return;
+        }
+
+
     }
 }
