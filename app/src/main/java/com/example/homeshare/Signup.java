@@ -35,6 +35,8 @@ public class Signup extends AppCompatActivity {
             err.setText("Error: Passwords don't match!");
         } else {
             err.setText("");
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
         }
     }
 
