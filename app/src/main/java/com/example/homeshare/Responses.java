@@ -3,12 +3,15 @@ package com.example.homeshare;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,44 +24,39 @@ import java.util.ArrayList;
 
 public class Responses extends AppCompatActivity {
 
-    // variables for list view
-    private ListView responses;
-
-    ArrayList<String> responsesArrayList;
-
-    // database reference
-    DatabaseReference reference;
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    ResponseAdapter responseAdapter;
+    ArrayList<Response> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_responses);
 
-        // initializing variables for listviews.
-        responses = findViewById(R.id.responses);
-        // initializing our array list
-        responsesArrayList = new ArrayList<String>();
+        recyclerView = findViewById(R.id.responseList);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Responses");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        createResponseList();
-    }
+        list = new ArrayList<>();
+        responseAdapter = new ResponseAdapter(this, list);
+        recyclerView.setAdapter(responseAdapter);
 
-    private void createResponseList() {
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, responsesArrayList);
-
-        reference = FirebaseDatabase.getInstance().getReference();
-
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                textView.setText(value);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren() ){
+                    Response r = ds.getValue(Response.class);
+                    list.add(r);
+                }
+                responseAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                textView.setText("Error in retrieving your message!");
-                Log.w("SecondFragment", "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
+
 }
