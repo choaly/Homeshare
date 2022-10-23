@@ -5,21 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
-        TextView loginButton = (TextView) findViewById(R.id.login);
+        EditText editView = (EditText) findViewById(R.id.email);
+        String message = editView.getText().toString();
+
+        TextView loginButton = (TextView) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this::onClickLogin);
     }
 
     public void onClickLogin(View view) {
-        Intent intent = new Intent(this, login.class);
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
         return;
     }
