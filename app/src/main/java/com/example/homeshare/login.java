@@ -20,6 +20,9 @@ public class login extends AppCompatActivity {
 
         TextView loginButton = (TextView) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this::onClickLogin);
+
+        TextView loginBackButton = (TextView) findViewById(R.id.loginBackButton);
+        loginBackButton.setOnClickListener(this::onClickBack);
     }
 
     public void onClickLogin(View view) {
@@ -34,7 +37,11 @@ public class login extends AppCompatActivity {
             startActivity(intent);
             return;
         }
+    }
 
-
+    public void onClickBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        return;
     }
 }
