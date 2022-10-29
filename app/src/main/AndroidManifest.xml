@@ -20,6 +20,18 @@
             android:name=".CreateListing"
             android:exported="false" />
         <activity
+            android:name=".ListingDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Listings"
+            android:exported="false" />
+        <activity
+            android:name=".ResponseDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Responses"
+            android:exported="false" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity
