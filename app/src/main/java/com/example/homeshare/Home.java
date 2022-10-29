@@ -21,7 +21,7 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
 //        setContentView(R.layout.activity_home);
         setContentView(binding.getRoot());
-        replaceFragment(new AccountFragment());
+//        replaceFragment(new AccountFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -46,7 +46,10 @@ public class Home extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commitAllowingStateLoss();
+
+//        fragmentTransaction.commit();
 
     }
 
