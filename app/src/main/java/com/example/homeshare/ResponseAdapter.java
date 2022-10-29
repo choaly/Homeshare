@@ -15,17 +15,20 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
 
     Context context;
     ArrayList<Response> list;
+    private OnResponseListener onResponseListenerG;
 
-    public ResponseAdapter(Context context, ArrayList<Response> list) {
+    public ResponseAdapter(Context context, ArrayList<Response> list, OnResponseListener onResponseListener) {
         this.context = context;
         this.list = list;
+        this.onResponseListenerG = onResponseListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.response_item, parent, false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, onResponseListenerG);
+
     }
 
     @Override
@@ -43,17 +46,30 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView name, grade, gender, postTitle;
+        OnResponseListener onResponseListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnResponseListener onResponseListener) {
             super(itemView);
+            this.onResponseListener = onResponseListener;
 
             name = itemView.findViewById(R.id.responderName);
             grade = itemView.findViewById(R.id.responderGrade);
             gender = itemView.findViewById(R.id.responderGender);
             postTitle = itemView.findViewById(R.id.postTitle);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onResponseListener.onResponseClick( getAdapterPosition() );
+        }
+    }
+
+    public interface OnResponseListener{
+        void onResponseClick( int position );
     }
 }

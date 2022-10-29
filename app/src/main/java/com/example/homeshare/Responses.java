@@ -2,6 +2,7 @@ package com.example.homeshare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Responses extends AppCompatActivity {
+public class Responses extends AppCompatActivity implements ResponseAdapter.OnResponseListener {
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
@@ -40,12 +41,15 @@ public class Responses extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        responseAdapter = new ResponseAdapter(this, list);
+        responseAdapter = new ResponseAdapter(this, list,  this);
         recyclerView.setAdapter(responseAdapter);
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     Response r = ds.getValue(Response.class);
                     list.add(r);
@@ -59,4 +63,14 @@ public class Responses extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResponseClick(int position) {
+        Response r = list.get(position);
+        Intent intent = new Intent(this, ResponseDetails.class);
+        intent.putExtra("name", r.getName());
+        intent.putExtra("grade", r.getGrade());
+        intent.putExtra("gender", r.getGender());
+        intent.putExtra("postTitle", r.getPostTitle());
+        startActivity(intent);
+    }
 }
