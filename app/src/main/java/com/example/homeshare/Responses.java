@@ -1,17 +1,20 @@
 package com.example.homeshare;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,52 +23,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ResponsesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ResponsesFragment extends Fragment implements ResponseAdapter.OnResponseListener {
+public class Responses extends AppCompatActivity implements ResponseAdapter.OnResponseListener {
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     ResponseAdapter responseAdapter;
     ArrayList<Response> list;
 
-    public ResponsesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment ResponsesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ResponsesFragment newInstance(String param1, String param2) {
-        ResponsesFragment fragment = new ResponsesFragment();
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_responses);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_responses, container, false);
-
-        recyclerView = view.findViewById(R.id.responseList);
+        recyclerView = findViewById(R.id.responseList);
         databaseReference = FirebaseDatabase.getInstance().getReference("Responses");
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        responseAdapter = new ResponseAdapter(getActivity(), list,  this);
+        responseAdapter = new ResponseAdapter(this, list,  this);
         recyclerView.setAdapter(responseAdapter);
 
 
@@ -85,14 +61,12 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        return view;
     }
 
     @Override
     public void onResponseClick(int position) {
         Response r = list.get(position);
-        Intent intent = new Intent(getActivity(), ResponseDetails.class);
+        Intent intent = new Intent(this, ResponseDetails.class);
         intent.putExtra("name", r.getName());
         intent.putExtra("grade", r.getGrade());
         intent.putExtra("gender", r.getGender());

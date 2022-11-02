@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResponsesFragment">
+    tools:context=".Listings">
 
     <TextView
-        android:id="@+id/responsePageHeader"
+        android:id="@+id/listingPageHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12sp"
         android:layout_marginTop="20sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Responses"
+        android:text="Listings"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -21,14 +21,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/responseList"
+        android:id="@+id/listingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/responsePageHeader"
+        app:layout_constraintTop_toBottomOf="@+id/listingPageHeader"
         />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

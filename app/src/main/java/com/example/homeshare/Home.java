@@ -19,19 +19,23 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
-//        setContentView(R.layout.activity_home);
         setContentView(binding.getRoot());
-//        replaceFragment(new AccountFragment());
+        replaceFragment(new ListingsFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
-                case R.id.home:
-//                    replaceFragment(new HomeFragment());
+                case R.id.listings:
+                    replaceFragment(new ListingsFragment());
                     break;
                 case R.id.responses:
-//                    replaceFragment(new ResponseFragment());
+                    replaceFragment(new ResponsesFragment());
                     break;
+                case R.id.create_listings:
+                    replaceFragment(new CreateListingFragment());
+                    break;
+                case R.id.notifications:
+//                    replaceFragment(new NotificationsFragment());
                 case R.id.my_account:
                     replaceFragment(new AccountFragment());
                     break;
@@ -48,8 +52,6 @@ public class Home extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
-
-//        fragmentTransaction.commit();
 
     }
 
