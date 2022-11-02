@@ -54,7 +54,6 @@ public class Home extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
 
-        setContentView(R.layout.activity_listings);
     }
 
 
