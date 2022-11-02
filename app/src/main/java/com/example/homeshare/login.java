@@ -33,7 +33,7 @@ public class login extends AppCompatActivity {
             err.setText("Error: Please fill out all fields!");
         } else {
             err.setText("");
-            Intent intent = new Intent(this, Home.class);
+            Intent intent = new Intent(this, Listings.class);
             startActivity(intent);
             return;
         }

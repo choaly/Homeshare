@@ -18,6 +18,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new ListingsFragment());
@@ -53,6 +54,7 @@ public class Home extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
 
+        setContentView(R.layout.activity_listings);
     }
 
 
