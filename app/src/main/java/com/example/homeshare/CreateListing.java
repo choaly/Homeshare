@@ -69,7 +69,7 @@ public class CreateListing extends AppCompatActivity {
 
             // Add all to db
 
-            Intent intent = new Intent(this, Home.class);
+            Intent intent = new Intent(this, Listing.class);
             startActivity(intent);
             return;
         } else {

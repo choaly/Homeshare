@@ -29,7 +29,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.listing_item, parent, false);
         return new MyViewHolder(v, onListingListenerG);
-
     }
 
     @Override
