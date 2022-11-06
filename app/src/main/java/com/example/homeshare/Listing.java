@@ -7,7 +7,6 @@ public class Listing {
     String listId, title, description, address, leaseStart, leaseEnd, prefGender, posterName;
     int price, numBed, numBath, numSpotsAvail;
 
-
     public String getListId() {
         return listId;
     }
