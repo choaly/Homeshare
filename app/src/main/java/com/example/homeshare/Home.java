@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.homeshare.databinding.ActivityHomeBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class Home extends AppCompatActivity {
 
@@ -53,7 +54,6 @@ public class Home extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
-
     }
 
 
