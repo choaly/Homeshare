@@ -38,8 +38,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.MyViewHo
         String nameText = "Posted by " + l.getPosterName();
         holder.name.setText(nameText);
         holder.address.setText(l.getAddress());
-        String roomsText = l.getNumBed() + "B" + l.getNumBath() + "B";
-        holder.rooms.setText(roomsText);
     }
 
     @Override
