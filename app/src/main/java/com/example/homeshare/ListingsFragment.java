@@ -67,11 +67,9 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         recyclerView = view.findViewById(R.id.listingList);
         databaseReference = FirebaseDatabase.getInstance().getReference("Listings");
         recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
 
         list = new ArrayList<>();
-//        listingAdapter = new ListingAdapter(this, list,  this);
         listingAdapter = new ListingAdapter(getActivity(), list,  this);
         recyclerView.setAdapter(listingAdapter);
 

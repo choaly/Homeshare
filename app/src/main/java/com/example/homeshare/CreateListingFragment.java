@@ -45,8 +45,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
     String numSpotsAvailableString;
     int selectedGenderId;
     String preferredGender = "";
-
-    //    TextView postBtn;
     Button postBtn;
 
     public CreateListingFragment() {
@@ -75,11 +73,8 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_listing, container, false);
-        postBtn = (Button) view.findViewById(R.id.postListingButton);
+        postBtn = (Button)view.findViewById(R.id.postListingButton);
         postBtn.setOnClickListener((View.OnClickListener) this);
-
-//        Log.i( "debug", "HELLO");
-
         return view;
     }
 
@@ -123,11 +118,13 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
 
         if (!dateErr && listingTitle.length() > 0 && address.length() > 0 && leaseStartString.length() > 0
                 && leaseEndString.length() > 0 && description.length() > 0 && pricePerMonthString.length() > 0
-                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0) {
+                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0)
+        {
             double pricePerMonth = Double.parseDouble(pricePerMonthString);
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
             // Add all to db
+
             root = FirebaseDatabase.getInstance();
             reference = root.getReference().child("Listings");
             Listing l = new Listing(listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
@@ -145,6 +142,7 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             TextView errMsg = getView().findViewById(R.id.createListingErrMsg);
             errMsg.setText(msg);
         }
+
     }
 
     private void replaceFragment(Fragment fragment) {
