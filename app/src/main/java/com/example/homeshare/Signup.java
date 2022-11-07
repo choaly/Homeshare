@@ -34,13 +34,11 @@ public class Signup extends AppCompatActivity {
     }
 
     public void onClickSignup(View view) {
-        String fName = ((EditText) findViewById(R.id.firstName)).getText().toString();
-        String lName = ((EditText) findViewById(R.id.lastName)).getText().toString();
         String email = ((EditText) findViewById(R.id.signUpEmail)).getText().toString();
         String pass = ((EditText) findViewById(R.id.signUpPassword)).getText().toString();
         String confPass = ((EditText) findViewById(R.id.confPassword)).getText().toString();
         TextView err = (TextView) findViewById(R.id.signUpErrMsg);
-        if (fName.equals("") || lName.equals("") || email.equals("") || pass.equals("") || confPass.equals("")) {
+        if (email.equals("") || pass.equals("") || confPass.equals("")) {
             err.setText("Error: Please fill out all fields!");
         } else if (!pass.equals(confPass)) {
             err.setText("Error: Passwords don't match!");
