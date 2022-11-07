@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class WelcomePage extends AppCompatActivity {
@@ -42,9 +41,10 @@ public class WelcomePage extends AppCompatActivity {
 
         if (fName.length() > 0 && lName.length() > 0 && gender.length() > 0 && year.length() > 0 && bio.length() > 0) {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             // add to user db
             root = FirebaseDatabase.getInstance();
-            User user = new User(fName, lName, gender, year, bio);
+            User user = new User(fName, lName, email, gender, year, bio);
             root.getReference().child("Users/"+uid).setValue(user);
 
             Intent intent = new Intent(this, Home.class);
