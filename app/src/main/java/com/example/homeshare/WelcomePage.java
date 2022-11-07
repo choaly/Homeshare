@@ -32,7 +32,7 @@ public class WelcomePage extends AppCompatActivity {
 
         if (gender.length() > 0 && bio.length() > 0) {
             // TODO: add to user db
-            Intent intent = new Intent(this, ListingsFragment.class);
+            Intent intent = new Intent(this, Home.class);
             startActivity(intent);
             return;
         } else {
