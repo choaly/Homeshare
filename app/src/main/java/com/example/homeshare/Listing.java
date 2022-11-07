@@ -4,13 +4,25 @@ import java.lang.String;
 import java.util.ArrayList;
 
 public class Listing {
-    String listId, title, description, address, leaseStart, leaseEnd, prefGender, posterName;
-    int price, numBed, numBath, numSpotsAvail;
+    String title, description, address, leaseStart, leaseEnd, prefGender, posterName;
+    int numSpotsAvail;
+    double price;
 
-
-    public String getListId() {
-        return listId;
+    public Listing() {
     }
+
+    public Listing(String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, double price, int numSpotsAvail) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+        this.leaseStart = leaseStart;
+        this.leaseEnd = leaseEnd;
+        this.prefGender = prefGender;
+        this.posterName = posterName;
+        this.price = price;
+        this.numSpotsAvail = numSpotsAvail;
+    }
+
 
     public String getTitle() {
         return title;
@@ -40,16 +52,8 @@ public class Listing {
         return posterName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
-    }
-
-    public int getNumBed() {
-        return numBed;
-    }
-
-    public int getNumBath() {
-        return numBath;
     }
 
     public int getNumSpotsAvail() {

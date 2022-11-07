@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Listings">
+    tools:context=".Notifications">
 
     <TextView
-        android:id="@+id/listingPageHeader"
+        android:id="@+id/notificationPageHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12sp"
         android:layout_marginTop="20sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Listings"
+        android:text="Notifications"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -21,14 +21,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listingList"
+        android:id="@+id/notificationList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="4dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listingPageHeader"
+        app:layout_constraintTop_toBottomOf="@+id/notificationPageHeader"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
