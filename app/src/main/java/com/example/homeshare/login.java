@@ -7,16 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity {
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText editView = (EditText) findViewById(R.id.email);
-        String message = editView.getText().toString();
+        auth = FirebaseAuth.getInstance();
 
         TextView loginButton = (TextView) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this::onClickLogin);
@@ -33,10 +38,19 @@ public class login extends AppCompatActivity {
             err.setText("Error: Please fill out all fields!");
         } else {
             err.setText("");
-            Intent intent = new Intent(this, Listings.class);
-            startActivity(intent);
-            return;
+            logInUser(email, pass);
         }
+    }
+
+    private void logInUser(String email, String pass) {
+        auth.signInWithEmailAndPassword(email,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(login.this, "Welcome back!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(login.this, Listings.class));
+                finish();
+            }
+        });
     }
 
     public void onClickBack(View view) {
