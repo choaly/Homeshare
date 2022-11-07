@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +38,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
     DatabaseReference databaseReference;
     ListingAdapter listingAdapter;
     ArrayList<Listing> list;
+    Map<String, Listing> hm = new HashMap<String, Listing>();
 
     public ListingsFragment() {
         // Required empty public constructor
@@ -77,28 +80,45 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     Listing l = ds.getValue(Listing.class);
+                    String key = ds.getKey();
+                    hm.put(key, l);
                     list.add(l);
                 }
                 listingAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
         return view;
     }
 
     @Override
     public void onListingClick(int position) {
         Listing l = list.get(position);
-//        Intent intent = new Intent(this, ListingDetails.class);
         Intent intent = new Intent(getActivity(), ListingDetails.class);
+
+        String key = "";
+
+        for (Map.Entry<String, Listing> set : hm.entrySet()) {
+            if (set.getValue() == l){
+                key = set.getKey();
+            }
+        }
+        System.out.println(key);
+        intent.putExtra("key", key);
         intent.putExtra("title", l.getTitle());
+        intent.putExtra("address", l.getAddress());
+        intent.putExtra("leaseStart", l.getLeaseStart());
+        intent.putExtra("leaseEnd", l.getLeaseEnd());
+        intent.putExtra("descrip", l.getDescription());
+        intent.putExtra("prefGen", l.getPrefGender());
+        intent.putExtra("poster", l.getPosterName());
+        intent.putExtra("price", l.getPrice());
+        intent.putExtra("numSpots", l.getNumSpotsAvail());
+
         startActivity(intent);
     }
 
