@@ -96,7 +96,6 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
     @Override
     public void onListingClick(int position) {
         Listing l = list.get(position);
-//        Intent intent = new Intent(this, ListingDetails.class);
         Intent intent = new Intent(getActivity(), ListingDetails.class);
         intent.putExtra("title", l.getTitle());
         startActivity(intent);

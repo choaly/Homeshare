@@ -46,7 +46,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
     int selectedGenderId;
     String preferredGender = "";
 
-//    TextView postBtn;
     Button postBtn;
 
     public CreateListingFragment() {
@@ -77,8 +76,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_create_listing, container, false);
         postBtn = (Button)view.findViewById(R.id.postListingButton);
         postBtn.setOnClickListener((View.OnClickListener) this);
-
-//        Log.i( "debug", "HELLO");
 
         return view;
     }

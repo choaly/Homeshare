@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.homeshare.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -15,6 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 public class Home extends AppCompatActivity {
 
     ActivityHomeBinding binding;
+    String backBtnFrom = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,21 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new ListingsFragment());
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            backBtnFrom = extras.getString("backBtnFrom");
+            //The key argument here must match that used in the other activity
+        }
+
+        switch (backBtnFrom) {
+            case "responseDetailsPage":
+                replaceFragment(new ResponsesFragment());
+                break;
+            case "listingDetailsPage":
+                replaceFragment(new ListingsFragment());
+                break;
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -37,7 +54,8 @@ public class Home extends AppCompatActivity {
                     replaceFragment(new CreateListingFragment());
                     break;
                 case R.id.notifications:
-//                    replaceFragment(new NotificationsFragment());
+                    replaceFragment(new NotificationsFragment());
+                     break;
                 case R.id.my_account:
                     replaceFragment(new AccountFragment());
                     break;
