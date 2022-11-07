@@ -38,8 +38,9 @@ public class ResponseDetails extends AppCompatActivity {
     }
 
     private void onClickBack(View view) {
-        Intent intent = new Intent(this, Responses.class);
+        Intent intent = new Intent(this, ResponsesFragment.class);
         startActivity(intent);
+
         return;
     }
 
