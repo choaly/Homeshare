@@ -31,7 +31,8 @@ public class WelcomePage extends AppCompatActivity {
         String bio = ((TextView) findViewById(R.id.welcomeUserBio)).getText().toString();
 
         if (gender.length() > 0 && bio.length() > 0) {
-            Intent intent = new Intent(this, Home.class);
+            // TODO: add to user db
+            Intent intent = new Intent(this, ListingsFragment.class);
             startActivity(intent);
             return;
         } else {

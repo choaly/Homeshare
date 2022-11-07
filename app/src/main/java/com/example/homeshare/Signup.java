@@ -56,7 +56,7 @@ public class Signup extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(Signup.this, "Success, welcome to Homeshare!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Signup.this, Home.class);
+                    Intent intent = new Intent(Signup.this, WelcomePage.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(Signup.this, "ERROR creating user", Toast.LENGTH_SHORT).show();
