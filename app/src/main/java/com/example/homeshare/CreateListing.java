@@ -4,20 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateListing extends AppCompatActivity {
 
+    FirebaseDatabase root;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_listing);
+
+        Log.i( "tag", "create page");
 
         TextView postBtn = findViewById(R.id.postListingButton);
         postBtn.setOnClickListener(this::handleCreateListing);
@@ -68,10 +77,17 @@ public class CreateListing extends AppCompatActivity {
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
             // Add all to db
+            root = FirebaseDatabase.getInstance();
+            reference = root.getReference().child("Listings");
+            Listing l = new Listing( listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
+            reference.push().setValue(l);
+            Log.i( "clicked", "This button was clicked!");
+            //System.out.println("This button was clicked!");
 
-            Intent intent = new Intent(this, Listing.class);
+            Intent intent = new Intent(this, Listings.class);
             startActivity(intent);
             return;
+
         } else {
             String msg = "";
             if (dateErr) {
@@ -81,7 +97,5 @@ public class CreateListing extends AppCompatActivity {
             TextView errMsg = findViewById(R.id.createListingErrMsg);
             errMsg.setText(msg);
         }
-
-
     }
 }

@@ -97,6 +97,7 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
         intent.putExtra("grade", r.getGrade());
         intent.putExtra("gender", r.getGender());
         intent.putExtra("postTitle", r.getPostTitle());
+        intent.putExtra("message", r.getMessage());
         startActivity(intent);
     }
 }

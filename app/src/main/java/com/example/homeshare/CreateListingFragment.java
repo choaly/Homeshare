@@ -45,7 +45,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
     String numSpotsAvailableString;
     int selectedGenderId;
     String preferredGender = "";
-
     Button postBtn;
 
     public CreateListingFragment() {
@@ -126,12 +125,12 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
             // Add all to db
-            //root = FirebaseDatabase.getInstance();
-            //reference = root.getReference("Listings");
-            //Listing l = new Listing("111", listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, 3, 3, numSpotsAvailable);
-            //reference.push().setValue("test");
-            Log.i( "clicked", "This button was clicked!");
-            //System.out.println("This button was clicked!");
+
+            root = FirebaseDatabase.getInstance();
+            reference = root.getReference().child("Listings");
+            Listing l = new Listing(listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
+            reference.push().setValue(l);
+            reference.getKey();
 
             replaceFragment(new ListingsFragment());
             return;
@@ -145,6 +144,7 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             TextView errMsg = getView().findViewById(R.id.createListingErrMsg);
             errMsg.setText(msg);
         }
+
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -155,10 +155,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         fragmentTransaction.commitAllowingStateLoss();
 
 //        BottomNavigationView navigationView = (BottomNavigationView) getView().findViewById(R.id.bottomNavigationView);
-//        navigationView.setBottomNavigationItemSelectedListener(this);
+////        navigationView.setBottomNavigationItemSelectedListener(this);
 //        navigationView.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener) this);
 
         //set selected navigation bar icon to Listings Home
 
     }
+
 }

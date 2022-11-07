@@ -35,10 +35,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Response r = list.get(position);
         holder.name.setText(r.getName());
-        holder.grade.setText(r.getGrade());
-        holder.gender.setText(r.getGender());
-        holder.postTitle.setText(r.getPostTitle());
-
+        holder.message.setText(r.getMessage());
     }
 
     @Override
@@ -48,7 +45,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView name, grade, gender, postTitle;
+        TextView name, message;
         OnResponseListener onResponseListener;
 
         public MyViewHolder(@NonNull View itemView, OnResponseListener onResponseListener) {
@@ -56,9 +53,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
             this.onResponseListener = onResponseListener;
 
             name = itemView.findViewById(R.id.responderName);
-            grade = itemView.findViewById(R.id.responderGrade);
-            gender = itemView.findViewById(R.id.responderGender);
-            postTitle = itemView.findViewById(R.id.postTitle);
+            message = itemView.findViewById(R.id.responderMessage);
 
             itemView.setOnClickListener(this);
         }
