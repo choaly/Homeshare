@@ -79,8 +79,8 @@ public class CreateListing extends AppCompatActivity {
             // Add all to db
             root = FirebaseDatabase.getInstance();
             reference = root.getReference().child("Listings");
-            Listing l = new Listing( listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
-            reference.push().setValue(l);
+//            Listing l = new Listing( listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
+//            reference.push().setValue(l);
             Log.i( "clicked", "This button was clicked!");
             //System.out.println("This button was clicked!");
 

@@ -4,14 +4,15 @@ import java.lang.String;
 import java.util.ArrayList;
 
 public class Listing {
-    String title, description, address, leaseStart, leaseEnd, prefGender, posterName;
+    String id, title, description, address, leaseStart, leaseEnd, prefGender, posterName;
     int numSpotsAvail;
     double price;
 
     public Listing() {
     }
 
-    public Listing(String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, double price, int numSpotsAvail) {
+    public Listing(String id, String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, double price, int numSpotsAvail) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.address = address;
@@ -23,6 +24,10 @@ public class Listing {
         this.numSpotsAvail = numSpotsAvail;
     }
 
+
+    public String getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

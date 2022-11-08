@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -109,6 +110,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         }
         System.out.println(key);
         intent.putExtra("key", key);
+        intent.putExtra("id", l.getId());
         intent.putExtra("title", l.getTitle());
         intent.putExtra("address", l.getAddress());
         intent.putExtra("leaseStart", l.getLeaseStart());

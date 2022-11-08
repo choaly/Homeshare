@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,10 +126,10 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
             // Add all to db
-
             root = FirebaseDatabase.getInstance();
             reference = root.getReference().child("Listings");
-            Listing l = new Listing(listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
+            String listingId = UUID.randomUUID().toString();
+            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
             reference.push().setValue(l);
             reference.getKey();
 

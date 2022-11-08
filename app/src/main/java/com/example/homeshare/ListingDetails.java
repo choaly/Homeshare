@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ListingDetails extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class ListingDetails extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
         String title = intent.getStringExtra("title");
         String posterName = intent.getStringExtra("poster");
         String description = intent.getStringExtra("descrip");
@@ -48,6 +54,19 @@ public class ListingDetails extends AppCompatActivity {
         TextView tv5 =  (TextView) findViewById(R.id.listingEndDate);
         String leaseEndStr = "Lease End:" +  leaseEnd;
         tv5.setText(leaseEndStr);
+
+        TextView hideListingBtn = (TextView) findViewById(R.id.hideLisitng);
+        hideListingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                FirebaseDatabase root = FirebaseDatabase.getInstance();
+                DatabaseReference ref = root.getReference().child("Users/"+uid+"/hiddenListings/" + id);
+                ref.setValue("true");
+                Toast.makeText(ListingDetails.this, "Listing " + title + " hidden", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
