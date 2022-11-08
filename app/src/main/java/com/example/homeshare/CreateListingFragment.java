@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -131,6 +132,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             String listingId = UUID.randomUUID().toString();
             Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
             reference.push().setValue(l);
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DatabaseReference userRef = root.getReference().child("Users/"+uid+"/activeListings/"+listingId);
+            userRef.setValue("true");
+
             reference.getKey();
 
             replaceFragment(new ListingsFragment());
