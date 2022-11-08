@@ -159,6 +159,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             String listingId = UUID.randomUUID().toString();
             Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable);
             listingsReference.push().setValue(l);
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users/"+uid+"/activeListings/"+listingId);
+            userRef.setValue("true");
+
             listingsReference.getKey();
 
             replaceFragment(new ListingsFragment());
