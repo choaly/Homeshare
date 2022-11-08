@@ -31,7 +31,7 @@ public class ListingDetails extends AppCompatActivity {
         Intent intent = getIntent();
 
         lisitngKey = intent.getStringExtra("key");
-        posterId = intent.getStringExtra(posterId);
+        posterId = intent.getStringExtra("posterId");
         posterName = intent.getStringExtra("poster");
 
         String id = intent.getStringExtra("id");
