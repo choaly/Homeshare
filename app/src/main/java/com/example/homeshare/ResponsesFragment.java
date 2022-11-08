@@ -29,11 +29,14 @@ import java.util.ArrayList;
 public class ResponsesFragment extends Fragment implements ResponseAdapter.OnResponseListener {
 
     RecyclerView recyclerView;
+    DatabaseReference userReference;
     DatabaseReference databaseReference;
     ResponseAdapter responseAdapter;
     ArrayList<Response> list;
     String currentUserId;
     FirebaseAuth auth;
+
+    ArrayList<String> activeListingsList;
 
     public ResponsesFragment() {
         // Required empty public constructor
@@ -66,29 +69,53 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
         // get the user
         // get their active listings
         // get the responses for each active listing
-        currentUserId = auth.getInstance().getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings");
+
+        /*
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("activeListings");
+        activeListingsList = new ArrayList<String>();
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren() ){
+                    String s = ds.getValue(String.class);
+                    activeListingsList.add(s);
+                    System.out.println(s);
+                }
+                System.out.println(activeListingsList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });*/
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         list = new ArrayList<>();
-        responseAdapter = new ResponseAdapter(getActivity(), list,  this);
+        responseAdapter = new ResponseAdapter(getActivity(), list, this);
         recyclerView.setAdapter(responseAdapter);
+        currentUserId = auth.getInstance().getCurrentUser().getUid();
+        System.out.println("currentuser : " + currentUserId);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for(DataSnapshot ds: snapshot.getChildren() ){
-                    Response r = ds.getValue(Response.class);
-                    if (r.getPosterId() == currentUserId){
-                        list.add(r);
-                    }
-                }
-                responseAdapter.notifyDataSetChanged();
-            }
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    System.out.println( "posterid: " + ds.child("posterId").getValue(String.class) );
 
+                    if (ds.child("posterId").getValue(String.class) == currentUserId){
+
+                        for (DataSnapshot rs : ds.child("responses").getChildren() ) {
+                            Response r = rs.getValue(Response.class);
+                            list.add(r);
+                            System.out.println(r);
+                        }
+                    }
+                    System.out.println(list);
+                    responseAdapter.notifyDataSetChanged();
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -96,6 +123,28 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
 
         return view;
     }
+
+    /*@Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        //System.out.println(activeListingsList);
+        for(int i=0; i<activeListingsList.size(); i++) {
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(activeListingsList.get(i)).child("responses");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for(DataSnapshot ds: snapshot.getChildren() ){
+                        Response r = ds.getValue(Response.class);
+                        list.add(r);
+                    }
+                    responseAdapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+    }*/
 
     @Override
     public void onResponseClick(int position) {
