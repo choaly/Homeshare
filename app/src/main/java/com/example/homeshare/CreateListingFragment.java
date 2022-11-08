@@ -22,9 +22,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+=======
+>>>>>>> lucinda
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -159,6 +162,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             String listingId = UUID.randomUUID().toString();
             Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable);
             listingsReference.push().setValue(l);
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users/"+uid+"/activeListings/"+listingId);
+            userRef.setValue("true");
+
             listingsReference.getKey();
 
             replaceFragment(new ListingsFragment());
