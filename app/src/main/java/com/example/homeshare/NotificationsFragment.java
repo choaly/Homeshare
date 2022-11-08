@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class NotificationsFragment extends Fragment {
     NotificationsAdapter adapter;
     DatabaseReference databaseReference;
     ArrayList<Object> list = new ArrayList<>();
+    FirebaseAuth auth;
 
     public NotificationsFragment() {
         // Required empty public constructor
@@ -59,13 +61,13 @@ public class NotificationsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         recyclerView = view.findViewById(R.id.notificationList);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Notifications");
+        String userId = auth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notifications");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
         adapter = new NotificationsAdapter(list);
         recyclerView.setAdapter(adapter);
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,7 +76,6 @@ public class NotificationsFragment extends Fragment {
 
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     System.out.println(ds.getKey());
-
                     if (ds.getKey().contains("response")){
                         ResponseNotif r = ds.getValue(ResponseNotif.class);
                         list.add(r);

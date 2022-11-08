@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SendResponse extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class SendResponse extends AppCompatActivity {
     DatabaseReference notificationsReference;
     FirebaseAuth auth;
 
-    String listingKey, posterId, responderId, posterName, responderName, message;
+    String listingKey, posterId, responderId, posterName, responderName, message, title;
 
     ArrayList<Response> responses;
 
@@ -41,6 +42,7 @@ public class SendResponse extends AppCompatActivity {
         listingKey = intent.getStringExtra("listingKey");
         posterId = intent.getStringExtra("posterId");
         posterName = intent.getStringExtra("posterName");
+        title = intent.getStringExtra("postTitle");
         TextView sendResponsePosterName =  (TextView) findViewById(R.id.sendResponsePosterName);
         sendResponsePosterName.setText(posterName);
 
@@ -58,23 +60,6 @@ public class SendResponse extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        /*
-        responses = new ArrayList<Response>();
-        responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
-        responseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren() ){
-                    Response r = ds.getValue(Response.class);
-                    responses.add(r);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });*/
-
         //back button
         TextView listingDetailsBackBtn = (TextView) findViewById(R.id.sendResponseBackButton);
         listingDetailsBackBtn.setOnClickListener(this::onClickBack);
@@ -89,19 +74,20 @@ public class SendResponse extends AppCompatActivity {
         message = ((EditText) findViewById(R.id.message)).getText().toString();
 
         // write response to db
-        //responses = new ArrayList<Response>();
         responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
         Response r = new Response(posterId, responderId, posterName, responderName, message, false);
-        //responses.add(r);
         responseReference.push().setValue(r);
 
         // write notif to db
-        notificationsReference = FirebaseDatabase.getInstance().getReference().child("Notifications");
-        ResponseNotif rn = new ResponseNotif();
+        notificationsReference = FirebaseDatabase.getInstance().getReference().child("Users").child(posterId).child("notifications");
+        ResponseNotif rn = new ResponseNotif(responderName, title);
+        String responseNotifKey = "response" + UUID.randomUUID().toString();
+        notificationsReference.child(responseNotifKey).setValue(rn);
+
+        Intent intent = new Intent(this, Listing.class);
     }
 
     private void onClickBack(View view) {
         finish();
-
     }
 }

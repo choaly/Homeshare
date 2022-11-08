@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,8 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
     DatabaseReference databaseReference;
     ResponseAdapter responseAdapter;
     ArrayList<Response> list;
+    String currentUserId;
+    FirebaseAuth auth;
 
     public ResponsesFragment() {
         // Required empty public constructor
@@ -60,14 +63,18 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
         View view = inflater.inflate(R.layout.fragment_responses, container, false);
 
         recyclerView = view.findViewById(R.id.responseList);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Responses");
+        // get the user
+        // get their active listings
+        // get the responses for each active listing
+        currentUserId = auth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         list = new ArrayList<>();
         responseAdapter = new ResponseAdapter(getActivity(), list,  this);
         recyclerView.setAdapter(responseAdapter);
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,7 +82,9 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
                 list.clear();
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     Response r = ds.getValue(Response.class);
-                    list.add(r);
+                    if (r.getPosterId() == currentUserId){
+                        list.add(r);
+                    }
                 }
                 responseAdapter.notifyDataSetChanged();
             }

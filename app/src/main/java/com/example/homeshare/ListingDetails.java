@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ListingDetails extends AppCompatActivity {
 
-    String lisitngKey, posterId, posterName;
+    String lisitngKey, posterId, posterName, title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,9 @@ public class ListingDetails extends AppCompatActivity {
         lisitngKey = intent.getStringExtra("key");
         posterId = intent.getStringExtra("posterId");
         posterName = intent.getStringExtra("poster");
+        title = intent.getStringExtra("title");
 
         String id = intent.getStringExtra("id");
-
-        String title = intent.getStringExtra("title");
         String description = intent.getStringExtra("descrip");
         String leaseStart = intent.getStringExtra("leaseStart");
         String leaseEnd = intent.getStringExtra("leaseEnd");
@@ -88,6 +87,7 @@ public class ListingDetails extends AppCompatActivity {
         intent.putExtra("listingKey", lisitngKey);
         intent.putExtra("posterId", posterId);
         intent.putExtra("posterName", posterName);
+        intent.putExtra("postTitle", title);
         startActivity(intent);
         return;
     }
