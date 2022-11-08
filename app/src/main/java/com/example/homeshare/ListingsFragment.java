@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +43,9 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
     ListingAdapter listingAdapter;
     ArrayList<Listing> list;
     Map<String, Listing> hm = new HashMap<String, Listing>();
+
+    Button priceAscendingBtn;
+    Button priceDescendingBtn;
 
     public ListingsFragment() {
         // Required empty public constructor
@@ -96,6 +102,25 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         });
 
         //if filter button clicked, change adapter
+        priceAscendingBtn = view.findViewById(R.id.sortByPriceAscending);
+        priceAscendingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(list, new SortByPrice()); //Sorting listings by price
+//                listingAdapter = new ListingAdapter(getActivity(), list,  this);
+                listingAdapter.notifyDataSetChanged();
+            }
+        });
+
+        priceDescendingBtn = view.findViewById(R.id.sortByPriceDescending);
+        priceDescendingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort( list,
+                        Collections.reverseOrder( new SortByPrice() ) );
+                listingAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
