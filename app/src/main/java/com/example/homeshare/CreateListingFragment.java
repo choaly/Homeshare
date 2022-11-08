@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -153,10 +154,12 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             double pricePerMonth = Double.parseDouble(pricePerMonthString);
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
-            //get ref to db to create new listing object
+            // Add all to db
             listingsReference = FirebaseDatabase.getInstance().getReference().child("Listings");
-            Listing l = new Listing(listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, numSpotsAvailable, pricePerMonth);
+            String listingId = UUID.randomUUID().toString();
+            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable);
             listingsReference.push().setValue(l);
+            listingsReference.getKey();
 
             replaceFragment(new ListingsFragment());
             return;

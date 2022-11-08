@@ -57,7 +57,6 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         FirebaseDatabase root = FirebaseDatabase.getInstance();
         DatabaseReference ref = root.getReference("Users/"+uid);

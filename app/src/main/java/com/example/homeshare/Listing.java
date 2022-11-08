@@ -4,10 +4,9 @@ import java.lang.String;
 import java.util.ArrayList;
 
 public class Listing {
-    String title, description, address;
-    String leaseStart, leaseEnd, responseDeadline;
-    String prefGender;
-    String posterName, posterId;
+
+
+    String id, title, description, address, leaseStart, leaseEnd, prefGender, posterName, posterId, responseDeadline;
     int numSpotsAvail;
     double price;
     ArrayList<String> confirmedMatches;
@@ -16,7 +15,8 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, String posterId, String responseDeadline, int numSpotsAvail, double price) {
+    public Listing(String id, String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, String posterId, String responseDeadline, double price, int numSpotsAvail) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.address = address;
@@ -46,6 +46,10 @@ public class Listing {
 
     public ArrayList<Response> getResponses() {
         return responses;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
