@@ -94,6 +94,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
         return view;
     }
 

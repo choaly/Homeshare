@@ -1,5 +1,15 @@
 package com.example.homeshare;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.lang.String;
 import java.util.ArrayList;
 
@@ -10,7 +20,9 @@ public class Listing {
     int numSpotsAvail;
     double price;
     ArrayList<String> confirmedMatches;
-    ArrayList<Response> responses;
+    //ArrayList<Response> responses;
+    DataSnapshot responses;
+
 
     public Listing() {
     }
@@ -29,7 +41,7 @@ public class Listing {
         this.numSpotsAvail = numSpotsAvail;
         this.price = price;
         this.confirmedMatches = new ArrayList<String>();
-        this.responses = new ArrayList<Response>();
+        //this.responses = new ArrayList<Response>();
     }
 
     public String getPosterId() {
@@ -44,9 +56,9 @@ public class Listing {
         return confirmedMatches;
     }
 
-    public ArrayList<Response> getResponses() {
+    /*public ArrayList<Response> getResponses() {
         return responses;
-    }
+    }*/
 
     public String getId() {
         return id;
