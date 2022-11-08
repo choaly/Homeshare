@@ -2,25 +2,42 @@ package com.example.homeshare;
 
 public class Response {
 
-    String name, message, grade, gender, postTitle;
+    String posterId, responderId, posterName, responderName, message;
+    boolean accepted;
 
-    public String getName() {
-        return name;
+    public Response(){
+    }
+
+    public Response(String posterId, String responderId, String posterName, String responderName, String message, boolean accepted) {
+        this.posterId = posterId;
+        this.responderId = responderId;
+        this.posterName = posterName;
+        this.responderName = responderName;
+        this.message = message;
+        this.accepted = accepted;
+    }
+
+    public String getPosterId() {
+        return posterId;
+    }
+
+    public String getResponderId() {
+        return responderId;
+    }
+
+    public String getPosterName() {
+        return posterName;
+    }
+
+    public String getResponderName() {
+        return responderName;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public String getGrade() {
-        return grade;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getPostTitle() {
-        return postTitle;
+    public boolean isAccepted() {
+        return accepted;
     }
 }

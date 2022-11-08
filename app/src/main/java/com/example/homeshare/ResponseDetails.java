@@ -19,9 +19,7 @@ public class ResponseDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-        String grade = intent.getStringExtra("grade");
-        String gender = intent.getStringExtra("gender");
-        String postTitle = intent.getStringExtra("postTitle");
+        String grade = intent.getStringExtra("message");
 
         TextView backButton = (TextView) findViewById(R.id.backButton);
         backButton.setOnClickListener(this::onClickBack);
@@ -31,12 +29,6 @@ public class ResponseDetails extends AppCompatActivity {
 
         TextView responderGrade =  (TextView) findViewById(R.id.detailResponderGrade);
         responderGrade.setText(grade);
-
-        TextView responderGender =  (TextView) findViewById(R.id.detailResponderGender);
-        responderGender.setText(gender);
-
-        TextView posterTitle =  (TextView) findViewById(R.id.detailPostTitle);
-        posterTitle.setText(postTitle);
 
     }
 

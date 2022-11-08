@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class ListingDetails extends AppCompatActivity {
 
+    String lisitngKey, posterId, posterName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +23,11 @@ public class ListingDetails extends AppCompatActivity {
         TextView listingDetailsSendResponseBtn = (TextView) findViewById(R.id.listDetailsSendResponseButton);
         listingDetailsSendResponseBtn.setOnClickListener(this::onClickSend);
 
-
         Intent intent = getIntent();
+        lisitngKey = intent.getStringExtra("key");
+        posterId = intent.getStringExtra(posterId);
+        posterName = intent.getStringExtra("poster");
         String title = intent.getStringExtra("title");
-        String posterName = intent.getStringExtra("poster");
         String description = intent.getStringExtra("descrip");
         String leaseStart = intent.getStringExtra("leaseStart");
         String leaseEnd = intent.getStringExtra("leaseEnd");
@@ -37,7 +40,7 @@ public class ListingDetails extends AppCompatActivity {
         TextView tv1 =  (TextView) findViewById(R.id.listingPostTitle);
         tv1.setText(title);
         TextView tv2 =  (TextView) findViewById(R.id.posterName);
-        String posterStr = "Posted by" +  posterName;
+        String posterStr = "Posted by " +  posterName;
         tv2.setText(posterStr);
         TextView tv3 =  (TextView) findViewById(R.id.listingDescription);
         tv3.setText(description);
@@ -60,9 +63,11 @@ public class ListingDetails extends AppCompatActivity {
     private void onClickSend(View view) {
         Intent intent = new Intent(this, SendResponse.class);
         // need to get the listing id from the db
+        intent.putExtra("listingKey", lisitngKey);
+        intent.putExtra("posterId", posterId);
+        intent.putExtra("posterName", posterName);
         startActivity(intent);
         return;
     }
-
 
 }
