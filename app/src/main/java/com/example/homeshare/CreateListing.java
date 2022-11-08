@@ -84,7 +84,7 @@ public class CreateListing extends AppCompatActivity {
             Log.i( "clicked", "This button was clicked!");
             //System.out.println("This button was clicked!");
 
-            Intent intent = new Intent(this, Listings.class);
+            Intent intent = new Intent(this, Home.class);
             startActivity(intent);
             return;
 

@@ -52,7 +52,8 @@ public class ListingDetails extends AppCompatActivity {
     }
 
     private void onClickBack(View view) {
-        Intent intent = new Intent(this, ListingsFragment.class);
+        Intent intent = new Intent(this, Home.class);
+        intent.putExtra("backBtnFrom", "listingDetailsPage");
         startActivity(intent);
         return;
     }

@@ -92,6 +92,9 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        //if filter button clicked, change adapter
+
         return view;
     }
 
@@ -121,5 +124,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
 
         startActivity(intent);
     }
+
+
 
 }
