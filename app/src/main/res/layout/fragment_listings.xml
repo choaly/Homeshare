@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:text="Price (Low to High)"
             android:textSize="12dp"
-            android:backgroundTint="#5E27C1"
+            android:backgroundTint="#6C00F8"
             android:layout_marginRight="5dp"/>
 
         <Button

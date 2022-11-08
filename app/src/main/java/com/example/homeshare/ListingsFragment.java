@@ -101,13 +101,13 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             }
         });
 
-        //if filter button clicked, change adapter
+        //Functionality for filter buttons
         priceAscendingBtn = view.findViewById(R.id.sortByPriceAscending);
         priceAscendingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Collections.sort(list, new SortByPrice()); //Sorting listings by price
-//                listingAdapter = new ListingAdapter(getActivity(), list,  this);
+                Collections.sort(list, new SortByPrice());
+//                priceAscendingBtn.setBackgroundTintList(getResources().getColorStateList(R.color.filter_button_background));
                 listingAdapter.notifyDataSetChanged();
             }
         });
