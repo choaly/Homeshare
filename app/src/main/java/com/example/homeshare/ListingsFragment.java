@@ -77,6 +77,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         listingAdapter = new ListingAdapter(getActivity(), list,  this);
         recyclerView.setAdapter(listingAdapter);
 
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -120,6 +121,7 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         intent.putExtra("poster", l.getPosterName());
         intent.putExtra("price", l.getPrice());
         intent.putExtra("numSpots", l.getNumSpotsAvail());
+        intent.putExtra("posterId", l.getPosterId());
 
         startActivity(intent);
     }

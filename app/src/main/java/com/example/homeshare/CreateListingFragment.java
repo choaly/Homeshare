@@ -3,6 +3,7 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,10 +21,16 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,8 +41,11 @@ import java.util.UUID;
  */
 public class CreateListingFragment extends Fragment implements View.OnClickListener {
 
-    FirebaseDatabase root;
-    DatabaseReference reference;
+    DatabaseReference listingsReference;
+    DatabaseReference userReference;
+    FirebaseAuth auth;
+    String fullName;
+    String userId;
 
     String listingTitle;
     String address;
@@ -76,6 +86,25 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_create_listing, container, false);
         postBtn = (Button)view.findViewById(R.id.postListingButton);
         postBtn.setOnClickListener((View.OnClickListener) this);
+
+        //get current user id and current user name
+        userId = auth.getInstance().getCurrentUser().getUid();
+        System.out.println(userId);
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                String firstName = user.getFirstName();
+                System.out.println(firstName);
+                String lastName = user.getLastName();
+                System.out.println(lastName);
+                fullName = firstName + " " + lastName;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         return view;
     }
@@ -126,12 +155,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
 
             // Add all to db
-            root = FirebaseDatabase.getInstance();
-            reference = root.getReference().child("Listings");
+            listingsReference = FirebaseDatabase.getInstance().getReference().child("Listings");
             String listingId = UUID.randomUUID().toString();
-            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, "emma", pricePerMonth, numSpotsAvailable);
-            reference.push().setValue(l);
-            reference.getKey();
+            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable);
+            listingsReference.push().setValue(l);
+            listingsReference.getKey();
 
             replaceFragment(new ListingsFragment());
             return;
@@ -145,7 +173,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             TextView errMsg = getView().findViewById(R.id.createListingErrMsg);
             errMsg.setText(msg);
         }
-
     }
 
     private void replaceFragment(Fragment fragment) {

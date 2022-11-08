@@ -28,13 +28,12 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.MyView
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.response_item, parent, false);
         return new MyViewHolder(v, onResponseListenerG);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Response r = list.get(position);
-        holder.name.setText(r.getName());
+        holder.name.setText(r.getResponderName());
         holder.message.setText(r.getMessage());
     }
 

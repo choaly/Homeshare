@@ -73,7 +73,6 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     Response r = ds.getValue(Response.class);
                     list.add(r);
@@ -93,10 +92,7 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
     public void onResponseClick(int position) {
         Response r = list.get(position);
         Intent intent = new Intent(getActivity(), ResponseDetails.class);
-        intent.putExtra("name", r.getName());
-        intent.putExtra("grade", r.getGrade());
-        intent.putExtra("gender", r.getGender());
-        intent.putExtra("postTitle", r.getPostTitle());
+        intent.putExtra("name", r.getResponderName());
         intent.putExtra("message", r.getMessage());
         startActivity(intent);
     }
