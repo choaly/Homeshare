@@ -75,16 +75,19 @@ public class SendResponse extends AppCompatActivity {
 
         // write response to db
         responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
-        Response r = new Response(posterId, responderId, posterName, responderName, message, false);
-        responseReference.push().setValue(r);
+        Response r = new Response(listingKey, posterId, responderId, posterName, responderName, message, false);
+        String responseKey = UUID.randomUUID().toString();
+        responseReference.child(responseKey).setValue(r);
 
         // write notif to db
         notificationsReference = FirebaseDatabase.getInstance().getReference().child("Users").child(posterId).child("notifications");
-        ResponseNotif rn = new ResponseNotif(responderName, title);
+        ResponseNotif rn = new ResponseNotif(responseKey, responderName, title);
         String responseNotifKey = "response" + UUID.randomUUID().toString();
         notificationsReference.child(responseNotifKey).setValue(rn);
 
-        Intent intent = new Intent(this, Listing.class);
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+        return;
     }
 
     private void onClickBack(View view) {
