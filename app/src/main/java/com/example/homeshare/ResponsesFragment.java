@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +39,8 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
     String currentUserId;
     FirebaseAuth auth;
 
-    ArrayList<String> activeListingsList = new ArrayList<String>();
+    Map<String, Response> listingId = new HashMap<String, Response>();
+    Map<String, Response> responseId = new HashMap<String, Response>();
 
     public ResponsesFragment() {
         // Required empty public constructor
@@ -68,69 +70,58 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
         View view = inflater.inflate(R.layout.fragment_responses, container, false);
 
         recyclerView = view.findViewById(R.id.responseList);
-        // get the user
-        // get their active listings
-        // get the responses for each active listing
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         list = new ArrayList<>();
         responseAdapter = new ResponseAdapter(getActivity(), list, this);
         recyclerView.setAdapter(responseAdapter);
 
-
         currentUserId = auth.getInstance().getCurrentUser().getUid();
-        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("activeListings");
-
-        userReference.addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings");
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                activeListingsList.clear();
-                for(DataSnapshot ds: snapshot.getChildren() ){
-                    String s = ds.getValue(String.class);
-                    activeListingsList.add(s);
-                }
+                list.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
 
-                for(int i=0; i<activeListingsList.size(); i++) {
-//            System.out.println("YO " + activeListingsList.size());
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(activeListingsList.get(i)).child("responses");
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            list.clear();
-                            for(DataSnapshot ds: snapshot.getChildren() ){
-                                Response r = ds.getValue(Response.class);
-                                System.out.println("YO");
-                                list.add(r);
-                                System.out.println("r: " + r);
-                            }
-                            responseAdapter.notifyDataSetChanged();
+                    if (Objects.equals(ds.child("posterId").getValue(String.class), currentUserId)){
+                        for (DataSnapshot rs : ds.child("responses").getChildren() ) {
+                            Response r = rs.getValue(Response.class);
+                            String key = rs.getKey();
+                            responseId.put(key, r);
+                            list.add(r);
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Log.i("TAG", error.getMessage());
-                        }
-                    });
+                    }
+                    responseAdapter.notifyDataSetChanged();
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                throw error.toException();
             }
         });
-
         return view;
     }
 
     @Override
     public void onResponseClick(int position) {
         Response r = list.get(position);
+
+        String key = "";
+
+        for (Map.Entry<String, Response> set : responseId.entrySet()) {
+            if (set.getValue() == r){
+                key = set.getKey();
+            }
+        }
+
         Intent intent = new Intent(getActivity(), ResponseDetails.class);
+        intent.putExtra("responseId", key);
+        intent.putExtra("listingId", r.getListingKey());
+        intent.putExtra("posterId", r.getPosterId());
         intent.putExtra("name", r.getResponderName());
         intent.putExtra("message", r.getMessage());
+
+
         startActivity(intent);
     }
-
 }
