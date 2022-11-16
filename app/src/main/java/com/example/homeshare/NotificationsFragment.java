@@ -59,40 +59,6 @@ public class NotificationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
-
-        recyclerView = view.findViewById(R.id.notificationList);
-        String userId = auth.getInstance().getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notifications");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-
-        adapter = new NotificationsAdapter(list);
-        recyclerView.setAdapter(adapter);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-
-                for(DataSnapshot ds: snapshot.getChildren() ){
-                    System.out.println(ds.getKey());
-                    if (ds.getKey().contains("response")){
-                        ResponseNotif r = ds.getValue(ResponseNotif.class);
-                        list.add(r);
-                    }
-                    else if(ds.getKey().contains("matched")){
-                        MatchedNotif m = ds.getValue(MatchedNotif.class);
-                        list.add(m);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
         return view;
     }
 }
