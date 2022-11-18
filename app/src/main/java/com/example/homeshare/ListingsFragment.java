@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +76,9 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
 
         recyclerView = view.findViewById(R.id.listingList);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Listings");
+        FirebaseDatabase root = FirebaseDatabase.getInstance();
+//        databaseReference = root.getReference("Listings");
+        databaseReference = root.getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
 
@@ -88,11 +91,27 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for(DataSnapshot ds: snapshot.getChildren() ){
+                for(DataSnapshot ds: snapshot.child("Listings").getChildren() ){ //each listing in Listings
                     Listing l = ds.getValue(Listing.class);
-                    String key = ds.getKey();
-                    hm.put(key, l);
-                    list.add(l);
+                    String key = ds.getKey(); //get the listing key
+                    String listingId = ds.child("id").getValue(String.class);
+
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user
+                    snapshot.child("Users").child(uid).child("hiddenListings");
+
+                    boolean listContainsHiddenListing = false;
+                    for ( DataSnapshot datasnap : snapshot.child("Users").child(uid).child("hiddenListings").getChildren() ) {
+                        System.out.println(datasnap.getKey());
+                        if (Objects.equals(datasnap.getKey(), listingId)) { //if the hidden listing key matches current listing key, add it to the list
+                            listContainsHiddenListing = true;
+                            break;
+                        }
+                    }
+                    if (!listContainsHiddenListing) {
+                        hm.put(key, l);
+                        list.add(l);
+                    }
+
                 }
                 listingAdapter.notifyDataSetChanged();
             }
