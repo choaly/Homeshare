@@ -1,17 +1,24 @@
 package com.example.homeshare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ListingDetails extends AppCompatActivity {
 
@@ -59,6 +66,27 @@ public class ListingDetails extends AppCompatActivity {
         TextView tv5 =  (TextView) findViewById(R.id.listingEndDate);
         String leaseEndStr = "Lease End:" +  leaseEnd;
         tv5.setText(leaseEndStr);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users/"+posterId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                String bio = user.getBio();
+                String year = user.getYear();
+                String gender = user.getGender();
+                TextView usrBioView = (TextView) findViewById(R.id.posterBio);
+                usrBioView.setText("User Bio: " + bio);
+                TextView usrYearView = (TextView) findViewById(R.id.posterGrade);
+                usrYearView.setText("Year: " + year);
+                TextView usrGenderView = (TextView) findViewById(R.id.posterGender);
+                usrGenderView.setText("Gender: " + gender);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         TextView hideListingBtn = (TextView) findViewById(R.id.hideLisitng);
         hideListingBtn.setOnClickListener(new View.OnClickListener() {
