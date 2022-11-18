@@ -72,22 +72,28 @@ public class SendResponse extends AppCompatActivity {
     private void onClickSend(View view) {
         // get typed message
         message = ((EditText) findViewById(R.id.message)).getText().toString();
+        if (message.length() > 0 ){
+            // write response to db
+            responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
+            Response r = new Response(listingKey, posterId, responderId, posterName, responderName, message, false);
+            String responseKey = UUID.randomUUID().toString();
+            responseReference.child(responseKey).setValue(r);
 
-        // write response to db
-        responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
-        Response r = new Response(listingKey, posterId, responderId, posterName, responderName, message, false);
-        String responseKey = UUID.randomUUID().toString();
-        responseReference.child(responseKey).setValue(r);
+            // write notif to db
+            notificationsReference = FirebaseDatabase.getInstance().getReference().child("Users").child(posterId).child("notifications");
+            ResponseNotif rn = new ResponseNotif(responseKey, responderName, title);
+            String responseNotifKey = "response" + UUID.randomUUID().toString();
+            notificationsReference.child(responseNotifKey).setValue(rn);
 
-        // write notif to db
-        notificationsReference = FirebaseDatabase.getInstance().getReference().child("Users").child(posterId).child("notifications");
-        ResponseNotif rn = new ResponseNotif(responseKey, responderName, title);
-        String responseNotifKey = "response" + UUID.randomUUID().toString();
-        notificationsReference.child(responseNotifKey).setValue(rn);
-
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        return;
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+            return;
+        }else{
+            String msg = "";
+            msg += " Please fill in all fields";
+            TextView errMsg = (TextView) findViewById(R.id.sendResponseErrMsg);
+            errMsg.setText(msg);
+        }
     }
 
     private void onClickBack(View view) {

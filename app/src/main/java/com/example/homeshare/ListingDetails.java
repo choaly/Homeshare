@@ -88,7 +88,7 @@ public class ListingDetails extends AppCompatActivity {
             }
         });
 
-        TextView hideListingBtn = (TextView) findViewById(R.id.hideLisitng);
+        Button hideListingBtn = findViewById(R.id.hideLisitng);
         hideListingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +98,10 @@ public class ListingDetails extends AppCompatActivity {
                 DatabaseReference ref = root.getReference().child("Users/"+uid+"/hiddenListings/" + id);
                 ref.setValue("true");
                 Toast.makeText(ListingDetails.this, "Listing " + title + " hidden", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(ListingDetails.this, Home.class);
+                startActivity(intent);
+                return;
             }
         });
 

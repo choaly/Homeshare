@@ -31,15 +31,16 @@ import java.util.Objects;
  */
 public class ResponsesFragment extends Fragment implements ResponseAdapter.OnResponseListener {
 
-    RecyclerView recyclerView;
     DatabaseReference userReference;
     DatabaseReference databaseReference;
-    ResponseAdapter responseAdapter;
-    ArrayList<Response> list;
-    String currentUserId;
     FirebaseAuth auth;
 
-    Map<String, Response> listingId = new HashMap<String, Response>();
+    RecyclerView recyclerView;
+    ResponseAdapter responseAdapter;
+
+    ArrayList<Response> list;
+    String currentUserId, postTitle;
+
     Map<String, Response> responseId = new HashMap<String, Response>();
 
     public ResponsesFragment() {
@@ -114,10 +115,14 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
             }
         }
 
+
         Intent intent = new Intent(getActivity(), ResponseDetails.class);
         intent.putExtra("responseId", key);
         intent.putExtra("listingId", r.getListingKey());
         intent.putExtra("posterId", r.getPosterId());
+        intent.putExtra("posterName", r.getPosterName());
+        intent.putExtra("responderId", r.getResponderId());
+        intent.putExtra("responderName", r.getResponderName());
         intent.putExtra("name", r.getResponderName());
         intent.putExtra("message", r.getMessage());
 
