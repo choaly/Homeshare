@@ -178,13 +178,6 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
-
-//        BottomNavigationView navigationView = (BottomNavigationView) getView().findViewById(R.id.bottomNavigationView);
-////        navigationView.setBottomNavigationItemSelectedListener(this);
-//        navigationView.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener) this);
-
-        //set selected navigation bar icon to Listings Home
-
     }
 
 }
