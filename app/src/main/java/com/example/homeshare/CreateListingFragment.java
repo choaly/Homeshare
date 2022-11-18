@@ -44,16 +44,8 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
     DatabaseReference listingsReference;
     DatabaseReference userReference;
     FirebaseAuth auth;
-    String fullName;
-    String userId;
-
-    String listingTitle;
-    String address;
-    String leaseStartString;
-    String leaseEndString;
-    String description;
-    String pricePerMonthString;
-    String numSpotsAvailableString;
+    String fullName, userId;
+    String listingTitle, address, leaseStartString, leaseEndString, description, pricePerMonthString, numSpotsAvailableString;
     int selectedGenderId;
     String preferredGender = "";
     Button postBtn;

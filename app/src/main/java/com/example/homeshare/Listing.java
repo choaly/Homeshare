@@ -20,9 +20,7 @@ public class Listing {
     String id, title, description, address, leaseStart, leaseEnd, prefGender, posterName, posterId, responseDeadline;
     int numSpotsAvail;
     double price;
-    ArrayList<String> confirmedMatches;
-    //ArrayList<Response> responses;
-    DataSnapshot responses;
+    DataSnapshot responses, confirmedMatches;
 
 
     public Listing() {
@@ -41,8 +39,6 @@ public class Listing {
         this.responseDeadline = responseDeadline;
         this.numSpotsAvail = numSpotsAvail;
         this.price = price;
-        this.confirmedMatches = new ArrayList<String>();
-        //this.responses = new ArrayList<Response>();
     }
 
     public String getPosterId() {
@@ -52,14 +48,6 @@ public class Listing {
     public String getResponseDeadline() {
         return responseDeadline;
     }
-
-    public ArrayList<String> getConfirmedMatches() {
-        return confirmedMatches;
-    }
-
-    /*public ArrayList<Response> getResponses() {
-        return responses;
-    }*/
 
     public String getId() {
         return id;
