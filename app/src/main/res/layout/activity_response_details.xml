@@ -16,35 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Post Title"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-            android:id="@+id/detailPostTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="address"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -85,11 +56,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/detailResponderGrade"
+                android:id="@+id/detailResponderMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="grade"
+                android:text="this is a mesage"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
