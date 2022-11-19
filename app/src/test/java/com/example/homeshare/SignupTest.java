@@ -21,6 +21,12 @@ public class SignupTest {
     }
 
     @Test
+    public void isUscEmail() {
+        Assert.assertEquals(true, Signup.isUscEmail("email@usc.edu"));
+        Assert.assertEquals(false, Signup.isUscEmail("email@gmail.com"));
+    }
+
+    @Test
     public void passwordsMatch() {
         Assert.assertEquals(true, Signup.passwordsMatch("pass123", "pass123"));
         Assert.assertEquals(false, Signup.passwordsMatch("pass123", "pass"));

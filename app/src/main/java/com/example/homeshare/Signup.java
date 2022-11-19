@@ -37,6 +37,10 @@ public class Signup extends AppCompatActivity {
         return (!email.equals("") && !pass.equals("") && !confPass.equals(""));
     }
 
+    public static Boolean isUscEmail(String email) {
+        return email.contains("@usc.edu");
+    }
+
     public static Boolean passwordsMatch(String pass, String confPass) {
         return pass.equals(confPass);
     }
@@ -50,6 +54,8 @@ public class Signup extends AppCompatActivity {
             err.setText("Error: Please fill out all fields!");
         } else if (!passwordsMatch(pass, confPass)) {
             err.setText("Error: Passwords don't match!");
+        } else if (!isUscEmail(email)) {
+            err.setText("Error: must be USC email address");
         } else {
             err.setText("");
             registerUser(email, pass);
