@@ -1,11 +1,9 @@
 package com.example.homeshare;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-public class loginTest extends TestCase {
+public class loginTest {
     @Test
     public void allFieldsFilledIn() {
         Assert.assertEquals(true, login.allFieldsFilledIn("email@usc.edu", "password"));

@@ -1,11 +1,9 @@
 package com.example.homeshare;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-public class WelcomePageTest extends TestCase {
+public class WelcomePageTest {
     @Test
     public void allFilledIn() {
         Assert.assertEquals(true, WelcomePage.allFieldsFilledOut("Tommy", "Trojan", "Male", "Junior", "Hi I am Tommy"));
