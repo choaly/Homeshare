@@ -45,7 +45,6 @@ public class SignupTest {
     public ActivityScenarioRule<Signup> activityRule =
             new ActivityScenarioRule<>(Signup.class);
 
-
     String invalidEmail = "test@gmail.com";
 
     String emptyEmail = "";
@@ -71,7 +70,7 @@ public class SignupTest {
         onView(withId(R.id.signUpButton)).perform(click());
 
         //check that we haven't gone to Welcome page
-        onView(withId(R.id.signUpTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.signUpButton)).check(matches(isDisplayed()));
     }
 
 
@@ -89,7 +88,7 @@ public class SignupTest {
         onView(withId(R.id.signUpButton)).perform(click());
 
         //check that we haven't gone to Welcome page
-        onView(withId(R.id.signUpTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.signUpButton)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -106,22 +105,24 @@ public class SignupTest {
 
         onView(withId(R.id.signUpButton)).perform(click());
 
-        onView(withId(R.id.loginButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.signUpButton)).check(matches(isDisplayed()));
     }
 
 
     @Test
-    public void signupSuccess() {
-        onView(withId(R.id.email))
+    public void signupSuccess() throws InterruptedException {
+        onView(withId(R.id.signUpEmail))
                 .perform(typeText(validEmail), closeSoftKeyboard());
 
-        onView(withId(R.id.password))
+        onView(withId(R.id.signUpPassword))
                 .perform(typeText(validPassword), closeSoftKeyboard());
 
         onView(withId(R.id.confPassword))
                 .perform(typeText(validPassword), closeSoftKeyboard());
 
         onView(withId(R.id.signUpButton)).perform(click());
+
+        Thread.sleep(4000);
 
         //check that we're directed to Welcome page
         onView(withId(R.id.welcomeHeader)).check(matches(isDisplayed()));

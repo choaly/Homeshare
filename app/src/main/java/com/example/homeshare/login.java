@@ -35,7 +35,7 @@ public class login extends AppCompatActivity {
     public void onClickLogin(View view) {
         String email = ((EditText) findViewById(R.id.email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
-        TextView err = findViewById(R.id.loginErrMsg);
+        TextView err = (TextView) findViewById(R.id.loginErrMsg);
         if (email.equals("") || pass.equals("")) {
             err.setText("Error: Please fill out all fields!");
         } else {
