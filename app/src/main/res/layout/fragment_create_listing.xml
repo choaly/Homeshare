@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateListingFragment"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:id="@+id/createListingPage">
 
     <ScrollView
+        android:id="@+id/create_listing_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="525dp"
         android:layout_marginTop="10dp"

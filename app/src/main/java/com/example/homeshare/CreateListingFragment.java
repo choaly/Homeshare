@@ -101,6 +101,24 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
+    public static boolean inputsNotEmpty(String listingTitle, String address, String leaseStartString, String leaseEndString, String description, String pricePerMonthString, String numSpotsAvailableString, String preferredGender, String responseDeadlineString){
+        if (listingTitle.length() > 0 && address.length() > 0 && leaseStartString.length() > 0
+                && leaseEndString.length() > 0 && description.length() > 0 && pricePerMonthString.length() > 0
+                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public static String setErrorMsg(boolean dateError){
+        String message ="";
+        if (dateError) {
+            return message += "Date error";
+        }
+        return message += "Please fill in all fields";
+    }
+
+
     @Override
     public void onClick(View view) {
         listingTitle = ((TextView) getView().findViewById(R.id.CLlistingTitle)).getText().toString();
@@ -139,9 +157,9 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             dateErr = true;
         }
 
-        if (!dateErr && listingTitle.length() > 0 && address.length() > 0 && leaseStartString.length() > 0
-                && leaseEndString.length() > 0 && description.length() > 0 && pricePerMonthString.length() > 0
-                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0)
+        boolean inputsNotEmp = inputsNotEmpty(listingTitle, address, leaseStartString,leaseEndString, description,  pricePerMonthString, numSpotsAvailableString, preferredGender, responseDeadlineString);
+
+        if (!dateErr && inputsNotEmp )
         {
             double pricePerMonth = Double.parseDouble(pricePerMonthString);
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
@@ -162,11 +180,7 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             return;
 
         } else {
-            String msg = "";
-            if (dateErr) {
-                msg += "Date error";
-            }
-            msg += " Please fill in all fields";
+            String msg = setErrorMsg(dateErr);
             TextView errMsg = getView().findViewById(R.id.createListingErrMsg);
             errMsg.setText(msg);
         }

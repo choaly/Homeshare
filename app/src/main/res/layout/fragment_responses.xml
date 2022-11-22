@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResponsesFragment">
+    tools:context=".ResponsesFragment"
+    android:id="@+id/responsePage">
 
     <TextView
         android:id="@+id/responsePageHeader"
