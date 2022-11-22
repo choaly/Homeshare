@@ -28,6 +28,10 @@ public class WelcomePage extends AppCompatActivity {
         submitBtn.setOnClickListener(this::handleSubmitWelcome);
     }
 
+    public static Boolean allFieldsFilledOut(String fName, String lName, String gender, String year, String bio) {
+        return fName.length() > 0 && lName.length() > 0 && gender.length() > 0 && year.length() > 0 && bio.length() > 0;
+    }
+
     public void handleSubmitWelcome(View view) {
         String fName = ((EditText) findViewById(R.id.firstName)).getText().toString();
         String lName = ((EditText) findViewById(R.id.lastName)).getText().toString();
@@ -39,7 +43,7 @@ public class WelcomePage extends AppCompatActivity {
         String year = ((EditText) findViewById(R.id.yearInSchool)).getText().toString();
         String bio = ((TextView) findViewById(R.id.welcomeUserBio)).getText().toString();
 
-        if (fName.length() > 0 && lName.length() > 0 && gender.length() > 0 && year.length() > 0 && bio.length() > 0) {
+        if (allFieldsFilledOut(fName, lName, gender, year, bio)) {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             // add to user db
