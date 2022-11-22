@@ -32,12 +32,22 @@ public class login extends AppCompatActivity {
         loginBackButton.setOnClickListener(this::onClickBack);
     }
 
+    public static Boolean allFieldsFilledIn(String email, String pass) {
+        return !email.equals("") && !pass.equals("");
+    }
+
+    public static Boolean isUscEmail(String email) {
+        return email.contains("@usc.edu");
+    }
+
     public void onClickLogin(View view) {
         String email = ((EditText) findViewById(R.id.email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
         TextView err = (TextView) findViewById(R.id.loginErrMsg);
-        if (email.equals("") || pass.equals("")) {
+        if (allFieldsFilledIn(email, pass)) {
             err.setText("Error: Please fill out all fields!");
+        } else if (!isUscEmail(email)) {
+            err.setText("Error: Please use a USC account!");
         } else {
             err.setText("");
             logInUser(email, pass);

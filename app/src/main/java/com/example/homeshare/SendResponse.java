@@ -69,10 +69,20 @@ public class SendResponse extends AppCompatActivity {
 
     }
 
+    public static boolean messageNotEmpty(String message){
+        if (message.length() > 0){
+            return true;
+        }
+        return false;
+    }
+
     private void onClickSend(View view) {
         // get typed message
         message = ((EditText) findViewById(R.id.message)).getText().toString();
-        if (message.length() > 0 ){
+
+        Boolean msgNotEmpty = messageNotEmpty(message);
+
+        if (msgNotEmpty){
             // write response to db
             responseReference = FirebaseDatabase.getInstance().getReference().child("Listings").child(listingKey).child("responses");
             Response r = new Response(listingKey, posterId, responderId, posterName, responderName, message, false);
@@ -90,11 +100,12 @@ public class SendResponse extends AppCompatActivity {
             return;
         }else{
             String msg = "";
-            msg += " Please fill in all fields";
+            msg += "Please fill in all fields";
             TextView errMsg = (TextView) findViewById(R.id.sendResponseErrMsg);
             errMsg.setText(msg);
         }
     }
+
 
     private void onClickBack(View view) {
         finish();

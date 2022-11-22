@@ -9,7 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.content.Context;
+
+
 public class CreateListingWhiteBox {
+
 //    private final String first_name = "Alyssa";
 //
 //    private TextView resultView;

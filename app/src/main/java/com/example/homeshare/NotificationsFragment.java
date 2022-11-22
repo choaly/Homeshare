@@ -54,6 +54,14 @@ public class NotificationsFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public static Boolean isMatchedNotification(String notif) {
+        return notif.contains("matched");
+    }
+
+    public static Boolean isResponseNotification(String notif) {
+        return notif.contains("response");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,11 +84,11 @@ public class NotificationsFragment extends Fragment {
 
                 for(DataSnapshot ds: snapshot.getChildren() ){
                     System.out.println(ds.getKey());
-                    if (ds.getKey().contains("response")){
+                    if (isResponseNotification(ds.getKey())){
                         ResponseNotif r = ds.getValue(ResponseNotif.class);
                         list.add(r);
                     }
-                    else if(ds.getKey().contains("matched")){
+                    else if(isMatchedNotification(ds.getKey())){
                         MatchedNotif m = ds.getValue(MatchedNotif.class);
                         list.add(m);
                     }
