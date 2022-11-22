@@ -40,34 +40,36 @@ import junit.framework.AssertionFailedError;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class SignoutTest {
+public class LoginLogoutTest {
 
     @Rule
-    public FragmentScenarioRule<AccountFragment> activityRule =
-            new ActivityScenarioRule<>(AccountFragment.class);
+    public ActivityScenarioRule<login> activityRule =
+            new ActivityScenarioRule<>(login.class);
 
     String validEmail = "test@usc.edu";
     String validPassword = "red1234";
 
-
-    @Test
-    public void signupSignout() {
-        // Type text and then press the button.
-        onView(withId(R.id.signUpEmail))
+    public void login() throws InterruptedException {
+        onView(withId(R.id.email))
                 .perform(typeText(validEmail), closeSoftKeyboard());
 
-        onView(withId(R.id.signUpPassword))
+        onView(withId(R.id.password))
                 .perform(typeText(validPassword), closeSoftKeyboard());
 
-        onView(withId(R.id.confPassword))
-                .perform(typeText(validPassword), closeSoftKeyboard());
-
-        onView(withId(R.id.signUpButton)).perform(click());
-
-        //Click my account page on nav menu (AccountFragment)
-        //click signout
-        //check page is MainActivity page
+        onView(withId(R.id.loginButton)).perform(click());
+        Thread.sleep(2000);
     }
 
+
+    @Test
+    public void loginLogout() throws InterruptedException {
+        login();
+        onView(withId(R.id.my_account)).perform(click()); //click on my_account item on nav menu
+        Thread.sleep(2000);
+
+        onView(withId(R.id.logoutButton)).perform(click()); //click log
+
+        onView(withId(R.id.main_activity_page)).check(matches(isDisplayed())); //check page is MainActivity page
+    }
 
 }
