@@ -50,7 +50,7 @@ public class Signup extends AppCompatActivity {
         String pass = ((EditText) findViewById(R.id.signUpPassword)).getText().toString();
         String confPass = ((EditText) findViewById(R.id.confPassword)).getText().toString();
         TextView err = (TextView) findViewById(R.id.signUpErrMsg);
-        if (allFieldsFilledIn(email, pass, confPass)) {
+        if (!allFieldsFilledIn(email, pass, confPass)) {
             err.setText("Error: Please fill out all fields!");
         } else if (!passwordsMatch(pass, confPass)) {
             err.setText("Error: Passwords don't match!");

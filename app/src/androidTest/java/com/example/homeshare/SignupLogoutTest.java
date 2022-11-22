@@ -26,7 +26,7 @@ public class SignupLogoutTest {
     public ActivityScenarioRule<Signup> activityRule =
             new ActivityScenarioRule<>(Signup.class);
 
-    String validEmail = "aly@usc.edu";
+    String validEmail = "abcdefgh@usc.edu";
     String validPassword = "verysafepass";
 
     public void signup() {
