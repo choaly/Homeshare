@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WelcomePage">
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/welcomeHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"

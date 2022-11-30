@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListingsFragment"
-    android:id="@+id/fragment_listings"
-    >
+    android:id="@+id/fragment_listings">
 
     <TextView
         android:id="@+id/listingPageHeader"
