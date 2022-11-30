@@ -17,19 +17,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="700dp"
             android:layout_marginTop="10dp"
             android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/textView11"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="New Listing"
                 android:layout_marginStart="150dp"
                 android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="New Listing"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -226,6 +226,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="156dp"
+                android:layout_marginTop="344dp"
+                android:text="Num Spots Available"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
             <EditText
                 android:id="@+id/CLresponseDeadline"
                 android:layout_width="wrap_content"
@@ -247,16 +258,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/postListingButton"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="284dp"
-                android:layout_marginTop="544dp"
-                android:text="POST"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/createListingErrMsg"
                 android:layout_width="wrap_content"
@@ -265,6 +266,79 @@
                 android:layout_marginTop="544dp"
                 android:text=""
                 android:textColor="#FF0000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="540dp"
+                android:text="Num Beds"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/CLnumBeds"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="560dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="540dp"
+                android:text="Num Baths"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/CLnumBaths"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="560dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="610dp"
+                android:text="Dist to Campus(mi)"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/CLdistToCampus"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="630dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/postListingButton"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:layout_marginTop="630dp"
+                android:text="POST"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

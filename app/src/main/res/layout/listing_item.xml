@@ -67,7 +67,18 @@
                 android:textColor="#808080"
                 android:textSize="15sp"
                 />
+
+            <TextView
+                android:id="@+id/listingRooms"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="2B2B"
+                android:textColor="#808080"
+                android:textSize="15sp" />
         </LinearLayout>
+
+
 
     </LinearLayout>
 

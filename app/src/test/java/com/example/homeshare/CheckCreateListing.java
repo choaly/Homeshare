@@ -10,12 +10,12 @@ public class CheckCreateListing {
 
     @Test
     public void nonEmptyInputs_CreateListng_ReturnsTrue() {
-        assertTrue(CreateListingFragment.inputsNotEmpty("Listing Title", "123 West 36th Place", "12/12/2022", "12/12/2023", "valid description", "1200", "2", "female", "11/12/2022"));
+        assertTrue(CreateListingFragment.inputsNotEmpty("Listing Title", "123 West 36th Place", "12/12/2022", "12/12/2023", "valid description", "1200", "2", "female", "11/12/2022", "3", "3", "2.5"));
     }
 
     @Test
     public void emptyInputs_CreateListng_ReturnsFalse() {
-        assertFalse(CreateListingFragment.inputsNotEmpty("", "", "", "", "","", "", "", ""));
+        assertFalse(CreateListingFragment.inputsNotEmpty("", "", "", "", "","", "", "", "", "", "", ""));
     }
 
     @Test

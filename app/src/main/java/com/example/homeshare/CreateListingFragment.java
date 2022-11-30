@@ -45,7 +45,7 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
     DatabaseReference userReference;
     FirebaseAuth auth;
     String fullName, userId;
-    String listingTitle, address, leaseStartString, leaseEndString, description, pricePerMonthString, numSpotsAvailableString;
+    String listingTitle, address, leaseStartString, leaseEndString, description, pricePerMonthString, numSpotsAvailableString, numBedsString, numBathsString, distToCampusString;
     int selectedGenderId;
     String preferredGender = "";
     Button postBtn;
@@ -101,10 +101,11 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
-    public static boolean inputsNotEmpty(String listingTitle, String address, String leaseStartString, String leaseEndString, String description, String pricePerMonthString, String numSpotsAvailableString, String preferredGender, String responseDeadlineString){
+    public static boolean inputsNotEmpty(String listingTitle, String address, String leaseStartString, String leaseEndString, String description, String pricePerMonthString, String numSpotsAvailableString, String preferredGender, String responseDeadlineString, String numBedsString, String numBathsString, String distToCampusString){
         if (listingTitle.length() > 0 && address.length() > 0 && leaseStartString.length() > 0
                 && leaseEndString.length() > 0 && description.length() > 0 && pricePerMonthString.length() > 0
-                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0){
+                && numSpotsAvailableString.length() > 0 && preferredGender.length() > 0 && responseDeadlineString.length() > 0
+                && numBedsString.length() > 0 && numBathsString.length() > 0 && distToCampusString.length() > 0){
             return true;
         }
         return false;
@@ -129,6 +130,9 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
         pricePerMonthString = ((TextView) getView().findViewById(R.id.CLpricePerMonth)).getText().toString();
         numSpotsAvailableString = ((TextView) getView().findViewById(R.id.CLnumSpotsAvailable)).getText().toString();
         selectedGenderId = ((RadioGroup) getView().findViewById(R.id.CLprefGenderRadioGroup)).getCheckedRadioButtonId();
+        numBedsString = ((TextView) getView().findViewById(R.id.CLnumBeds)).getText().toString();
+        numBathsString = ((TextView) getView().findViewById(R.id.CLnumBaths)).getText().toString();
+        distToCampusString = ((TextView) getView().findViewById(R.id.CLdistToCampus)).getText().toString();
 
         if (selectedGenderId != -1) {
             preferredGender = ((RadioButton) getView().findViewById(selectedGenderId)).getText().toString();
@@ -157,17 +161,20 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             dateErr = true;
         }
 
-        boolean inputsNotEmp = inputsNotEmpty(listingTitle, address, leaseStartString,leaseEndString, description,  pricePerMonthString, numSpotsAvailableString, preferredGender, responseDeadlineString);
+        boolean inputsNotEmp = inputsNotEmpty(listingTitle, address, leaseStartString,leaseEndString, description,  pricePerMonthString, numSpotsAvailableString, preferredGender, responseDeadlineString, numBathsString, numBedsString, distToCampusString);
 
         if (!dateErr && inputsNotEmp )
         {
             double pricePerMonth = Double.parseDouble(pricePerMonthString);
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
+            int numBeds = Integer.parseInt(numBedsString);
+            int numBaths = Integer.parseInt(numBedsString);
+            double distToCampus = Double.parseDouble(distToCampusString);
 
             // Add all to db
             listingsReference = FirebaseDatabase.getInstance().getReference().child("Listings");
             String listingId = UUID.randomUUID().toString();
-            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable);
+            Listing l = new Listing(listingId, listingTitle, description, address, leaseStart.toString(), leaseEnd.toString(), preferredGender, fullName, userId, responseDeadlineString, pricePerMonth, numSpotsAvailable, numBeds, numBaths, distToCampus);
             listingsReference.push().setValue(l);
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

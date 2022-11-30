@@ -44,7 +44,7 @@ public class login extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
         TextView err = (TextView) findViewById(R.id.loginErrMsg);
-        if (allFieldsFilledIn(email, pass)) {
+        if (!allFieldsFilledIn(email, pass)) {
             err.setText("Error: Please fill out all fields!");
         } else if (!isUscEmail(email)) {
             err.setText("Error: Please use a USC account!");

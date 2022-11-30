@@ -10,8 +10,8 @@ import java.util.Collections;
 public class SortByPriceTest {
     @Test
     public void sortedLowToHigh() {
-        Listing listing1 = new Listing("","","","","","","","","","",10.0,0);
-        Listing listing2 = new Listing("","","","","","","","","","",9.0,0);
+        Listing listing1 = new Listing("","","","","","","","","","",10.0,0, 0, 0, 0);
+        Listing listing2 = new Listing("","","","","","","","","","",9.0,0, 0, 0,0);
 
         // Creating a list of these listings (unsorted)
         ArrayList<Listing> list = new ArrayList<>();
@@ -27,8 +27,8 @@ public class SortByPriceTest {
 
     @Test
     public void sortedHighToLow() {
-        Listing listing1 = new Listing("","","","","","","","","","",8.0,0);
-        Listing listing2 = new Listing("","","","","","","","","","",19.0,0);
+        Listing listing1 = new Listing("","","","","","","","","","",8.0,0, 0,0,0);
+        Listing listing2 = new Listing("","","","","","","","","","",19.0,0,0,0,0);
 
         // Creating a list of these listings (unsorted)
         ArrayList<Listing> list = new ArrayList<>();

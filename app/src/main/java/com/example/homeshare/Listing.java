@@ -18,15 +18,15 @@ public class Listing {
 
 
     String id, title, description, address, leaseStart, leaseEnd, prefGender, posterName, posterId, responseDeadline;
-    int numSpotsAvail;
-    double price;
+    int numSpotsAvail, numBeds, numBaths;
+    double price, distToCampus;
     DataSnapshot responses, confirmedMatches;
 
 
     public Listing() {
     }
 
-    public Listing(String id, String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, String posterId, String responseDeadline, double price, int numSpotsAvail) {
+    public Listing(String id, String title, String description, String address, String leaseStart, String leaseEnd, String prefGender, String posterName, String posterId, String responseDeadline, double price, int numSpotsAvail, int numBeds, int numBaths, double distToCampus) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -39,7 +39,11 @@ public class Listing {
         this.responseDeadline = responseDeadline;
         this.numSpotsAvail = numSpotsAvail;
         this.price = price;
+        this.numBeds = numBeds;
+        this.numBaths = numBaths;
+        this.distToCampus = distToCampus;
     }
+
 
     public String getPosterId() {
         return posterId;
@@ -89,4 +93,15 @@ public class Listing {
         return numSpotsAvail;
     }
 
+    public int getNumBeds() {
+        return numBeds;
+    }
+
+    public int getNumBaths() {
+        return numBaths;
+    }
+
+    public double getDistToCampus() {
+        return distToCampus;
+    }
 }
