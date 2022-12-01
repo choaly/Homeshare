@@ -29,6 +29,7 @@ import java.util.Objects;
  */
 public class AccountFragment extends Fragment {
     TextView logoutBtn;
+    TextView editBtn;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -86,6 +87,15 @@ public class AccountFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        editBtn = view.findViewById(R.id.editProfileButton);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
             }
         });
 
