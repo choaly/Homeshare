@@ -84,7 +84,6 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-
                     if (Objects.equals(ds.child("posterId").getValue(String.class), currentUserId)){
                         for (DataSnapshot rs : ds.child("responses").getChildren() ) {
                             Response r = rs.getValue(Response.class);
@@ -106,9 +105,7 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
     @Override
     public void onResponseClick(int position) {
         Response r = list.get(position);
-
         String key = "";
-
         for (Map.Entry<String, Response> set : responseId.entrySet()) {
             if (set.getValue() == r){
                 key = set.getKey();
@@ -125,7 +122,6 @@ public class ResponsesFragment extends Fragment implements ResponseAdapter.OnRes
         intent.putExtra("responderName", r.getResponderName());
         intent.putExtra("name", r.getResponderName());
         intent.putExtra("message", r.getMessage());
-
 
         startActivity(intent);
     }

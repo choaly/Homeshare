@@ -159,15 +159,6 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
         System.out.println(key);
         intent.putExtra("key", key);
         intent.putExtra("id", l.getId());
-        intent.putExtra("title", l.getTitle());
-        intent.putExtra("address", l.getAddress());
-        intent.putExtra("leaseStart", l.getLeaseStart());
-        intent.putExtra("leaseEnd", l.getLeaseEnd());
-        intent.putExtra("descrip", l.getDescription());
-        intent.putExtra("prefGen", l.getPrefGender());
-        intent.putExtra("poster", l.getPosterName());
-        intent.putExtra("price", l.getPrice());
-        intent.putExtra("numSpots", l.getNumSpotsAvail());
         intent.putExtra("posterId", l.getPosterId());
 
         startActivity(intent);
