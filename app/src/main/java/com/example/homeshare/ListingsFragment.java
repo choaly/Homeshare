@@ -47,6 +47,8 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
 
     Button priceAscendingBtn;
     Button priceDescendingBtn;
+    Button distanceBtn;
+    Button numBedsBtn;
 
     public ListingsFragment() {
         // Required empty public constructor
@@ -126,7 +128,6 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             @Override
             public void onClick(View view) {
                 Collections.sort(list, new SortByPrice());
-//                priceAscendingBtn.setBackgroundTintList(getResources().getColorStateList(R.color.filter_button_background));
                 listingAdapter.notifyDataSetChanged();
             }
         });
@@ -137,6 +138,25 @@ public class ListingsFragment extends Fragment implements ListingAdapter.OnListi
             public void onClick(View view) {
                 Collections.sort( list,
                         Collections.reverseOrder( new SortByPrice() ) );
+                listingAdapter.notifyDataSetChanged();
+            }
+        });
+
+        distanceBtn = view.findViewById(R.id.sortByDistance);
+        distanceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(list, new SortByDistance());
+                listingAdapter.notifyDataSetChanged();
+            }
+        });
+
+        numBedsBtn = view.findViewById(R.id.sortByNumBeds);
+        numBedsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort( list,
+                        Collections.reverseOrder( new SortByNumBeds() ) );
                 listingAdapter.notifyDataSetChanged();
             }
         });
