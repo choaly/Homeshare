@@ -168,7 +168,7 @@ public class CreateListingFragment extends Fragment implements View.OnClickListe
             double pricePerMonth = Double.parseDouble(pricePerMonthString);
             int numSpotsAvailable = Integer.parseInt(numSpotsAvailableString);
             int numBeds = Integer.parseInt(numBedsString);
-            int numBaths = Integer.parseInt(numBedsString);
+            int numBaths = Integer.parseInt(numBathsString);
             double distToCampus = Double.parseDouble(distToCampusString);
 
             // Add all to db

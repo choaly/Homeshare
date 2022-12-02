@@ -1,5 +1,6 @@
 package com.example.homeshare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -9,9 +10,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.homeshare.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
 
@@ -64,6 +73,26 @@ public class Home extends AppCompatActivity {
             return true;
 
         });
+
+        FirebaseDatabase fbdb = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fbdb.getReference();
+        FirebaseAuth user = FirebaseAuth.getInstance();
+        String userId = user.getCurrentUser().getUid();
+        ref.child("Users/" + userId + "/notifications")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        for (DataSnapshot child : children) {
+                            Toast.makeText(Home.this, "New match or response!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void replaceFragment(Fragment fragment) {

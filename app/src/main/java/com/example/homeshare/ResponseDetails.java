@@ -24,7 +24,7 @@ import java.util.UUID;
 
 public class ResponseDetails extends AppCompatActivity {
 
-    DatabaseReference reference;
+    DatabaseReference reference, responderRef;
     DatabaseReference ref;
     FirebaseAuth auth;
 
@@ -49,13 +49,34 @@ public class ResponseDetails extends AppCompatActivity {
         responderID = intent.getStringExtra("responderId");
         responderNAME = intent.getStringExtra("responderName");
 
+        DatabaseReference responderRef = FirebaseDatabase.getInstance().getReference().child("Users/"+responderID);
+        responderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                String name = "About " + user.getFirstName() + " " + user.getLastName();
+                String bio = user.getBio();
+                String year = user.getYear();
+                String gender = user.getGender();
+
+                TextView aboutUsrView = (TextView) findViewById(R.id.detailAboutResponderName);
+                aboutUsrView.setText(name);
+                TextView usrBioView = (TextView) findViewById(R.id.detailResponderBio);
+                usrBioView.setText(bio);
+                TextView usrYearView = (TextView) findViewById(R.id.detailResponderYear);
+                usrYearView.setText(year);
+                TextView usrGenderView = (TextView) findViewById(R.id.detailResponderGender);
+                usrGenderView.setText(gender);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         TextView responderName =  (TextView) findViewById(R.id.detailResponderName);
         responderName.setText(name);
-
-        /*TextView originalPostTitle =  (TextView) findViewById(R.id.detailPostTitle);
-        String postTitleStr = "responded to listing: " + postTITLE;
-        originalPostTitle.setText(postTitleStr);*/
 
         TextView responderMsg =  (TextView)findViewById(R.id.detailResponderMessage);
         responderMsg.setText(msg);

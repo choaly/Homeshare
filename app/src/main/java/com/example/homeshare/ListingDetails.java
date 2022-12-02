@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class ListingDetails extends AppCompatActivity {
 
     String lisitngKey, posterId, posterName, title;
@@ -39,33 +41,54 @@ public class ListingDetails extends AppCompatActivity {
 
         lisitngKey = intent.getStringExtra("key");
         posterId = intent.getStringExtra("posterId");
-        posterName = intent.getStringExtra("poster");
-        title = intent.getStringExtra("title");
-
         String id = intent.getStringExtra("id");
-        String description = intent.getStringExtra("descrip");
-        String leaseStart = intent.getStringExtra("leaseStart");
-        String leaseEnd = intent.getStringExtra("leaseEnd");
-        String address = intent.getStringExtra("address");
-        String prefGender = intent.getStringExtra("prefGen");
-        String price = intent.getStringExtra("price");
-        String numSpots = intent.getStringExtra("numSpots");
 
 
-        TextView tv1 =  (TextView) findViewById(R.id.listingPostTitle);
-        tv1.setText(title);
-        TextView tv2 =  (TextView) findViewById(R.id.posterName);
-        String posterStr = "Posted by " +  posterName;
-        tv2.setText(posterStr);
-        TextView tv3 =  (TextView) findViewById(R.id.listingDescription);
-        tv3.setText(description);
+        DatabaseReference listingRef = FirebaseDatabase.getInstance().getReference().child("Listings/"+lisitngKey);
+        listingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Listing l = snapshot.getValue(Listing.class);
 
-        TextView tv4 =  (TextView) findViewById(R.id.listingStartDate);
-        String leaseStartStr = "Lease Start:" +  leaseStart;
-        tv4.setText(leaseStartStr);
-        TextView tv5 =  (TextView) findViewById(R.id.listingEndDate);
-        String leaseEndStr = "Lease End:" +  leaseEnd;
-        tv5.setText(leaseEndStr);
+                String numSpots = String.valueOf(l.getNumSpotsAvail());
+                String price = String.valueOf(l.getPrice());
+                String numBeds = String.valueOf(l.getNumBeds());
+                String numBaths = String.valueOf(l.getNumBaths());
+                String dist = String.valueOf(l.getDistToCampus());
+
+
+                TextView tv1 =  (TextView) findViewById(R.id.listingPostTitle);
+                tv1.setText(l.getTitle());
+                TextView tv2 =  (TextView) findViewById(R.id.posterName);
+                tv2.setText("Posted by " +  l.getPosterName());
+                TextView tv3 =  (TextView) findViewById(R.id.listingAddress);
+                tv3.setText("Address: " +  l.getAddress());
+                TextView tv4 =  (TextView) findViewById(R.id.listingNumSpotsAvailible);
+                tv4.setText("Number of Spots Available: " + numSpots);
+                TextView tv5 =  (TextView) findViewById(R.id.listingDescription);
+                tv5.setText("Description: " +  l.getDescription());
+
+                TextView tv6 =  (TextView) findViewById(R.id.listingNumBeds);
+                tv6.setText("Beds: " + numBeds);
+                TextView tv7 =  (TextView) findViewById(R.id.listingNumBaths);
+                tv7.setText("Baths: " + numBaths);
+                TextView tv8 =  (TextView) findViewById(R.id.rent);
+                tv8.setText("Rent: " +  price + " per month");
+                TextView tv9 =  (TextView) findViewById(R.id.listingDist);
+                tv9.setText("Distance to Campus " +  dist + " mi");
+                TextView tv10 =  (TextView) findViewById(R.id.preferredGender);
+                tv10.setText("Preferred Gender: " + l.getPrefGender());
+                TextView tv11 =  (TextView) findViewById(R.id.listingStartDate);
+                tv11.setText("Lease Start: " +  l.getLeaseStart());
+                TextView tv12 =  (TextView) findViewById(R.id.listingEndDate);
+                tv12.setText("Lease End: " +  l.getLeaseEnd());
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users/"+posterId);
         userRef.addValueEventListener(new ValueEventListener() {
@@ -75,6 +98,8 @@ public class ListingDetails extends AppCompatActivity {
                 String bio = user.getBio();
                 String year = user.getYear();
                 String gender = user.getGender();
+
+
                 TextView usrBioView = (TextView) findViewById(R.id.posterBio);
                 usrBioView.setText("User Bio: " + bio);
                 TextView usrYearView = (TextView) findViewById(R.id.posterGrade);
